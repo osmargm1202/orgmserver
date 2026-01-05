@@ -64,6 +64,22 @@ El servicio continúa monitoreando la conexión.`,
 	return e.sendEmail(subject, body)
 }
 
+// SendIPChangeEmail envía correo cuando cambia la IP externa
+func (e *EmailService) SendIPChangeEmail(newIP string, oldIP string) error {
+	subject := fmt.Sprintf("Cambio de IP Externa - %s", e.appName)
+	
+	body := fmt.Sprintf(`Se ha detectado un cambio en la IP externa.
+
+IP Anterior: %s
+IP Nueva: %s
+Fecha/Hora: %s
+
+El servicio continúa monitoreando la conexión.`, 
+		oldIP, newIP, time.Now().Format("2006-01-02 15:04:05"))
+
+	return e.sendEmail(subject, body)
+}
+
 func (e *EmailService) sendEmail(subject, body string) error {
 	utils.WriteLog(fmt.Sprintf("[EMAIL] Intentando enviar correo a %s: %s", e.to, subject), e.debug)
 	

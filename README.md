@@ -40,27 +40,13 @@ Para usar Gmail como servidor SMTP, necesitas:
 ## Docker Compose
 
 ```yaml
-version: '3.8'
-
 services:
   orgmserver:
     image: orgmcr.or-gm.com/osmargm1202/orgmserver:latest
     container_name: orgmserver
-    restart: unless-stopped
-    environment:
-      - SMTP_HOST=smtp.gmail.com
-      - SMTP_PORT=587
-      - SMTP_USER=tu-email@gmail.com
-      - SMTP_PASSWORD=tu-app-password-de-gmail
-      - EMAIL_TO=destinatario@email.com
-      # Opcional: Nombre de la aplicación
-      - APP_NAME=ORGMServer
-      # Opcional: URL para healthcheck
-      - HEALTHCHECK_URL=https://tu-healthcheck-url.com/ping
-      # Opcional: Intervalo de monitoreo en segundos
-      - MONITOR_INTERVAL=60
-      # Opcional: Ruta del archivo de estado
-      - STATE_FILE_PATH=/tmp/orgmserver_state.json
+    restart: always
+    env_file:
+      - .env
     volumes:
       # Persistir estado entre reinicios
       - ./state:/tmp
@@ -94,19 +80,23 @@ go run main.go
 
 2. **Monitoreo continuo**: Cada minuto (configurable), verifica la conexión a internet intentando obtener la IP externa.
 
-3. **Detección de desconexión**: Si se pierde la conexión mientras el servicio está corriendo, guarda el timestamp de la desconexión.
+3. **Detección de cambio de IP**: Si la IP externa cambia, envía un correo notificando el cambio con la IP anterior y la nueva IP.
 
-4. **Detección de reconexión**: Cuando se restaura la conexión (mientras el servicio sigue corriendo), calcula la duración de la desconexión y envía un correo de "Conexión restaurada" con el tiempo sin conexión.
+4. **Detección de desconexión**: Si se pierde la conexión mientras el servicio está corriendo, guarda el timestamp de la desconexión.
+
+5. **Detección de reconexión**: Cuando se restaura la conexión (mientras el servicio sigue corriendo), calcula la duración de la desconexión y envía un correo de "Conexión restaurada" con el tiempo sin conexión.
 
 5. **Healthcheck opcional**: Si `HEALTHCHECK_URL` está configurado, envía una solicitud HTTP GET cada minuto para indicar que el servicio está funcionando.
 
 ## Tipos de Notificaciones
 
-El servicio envía solo 2 tipos de correos:
+El servicio envía 3 tipos de correos:
 
 - **Servidor Iniciado**: Se envía cada vez que el servicio inicia, indicando que está funcionando y activo, junto con la IP externa.
 
 - **Conexión Restaurada**: Se envía cuando se restaura la conexión a internet después de una desconexión detectada, indicando el tiempo que duró la desconexión.
+
+- **Cambio de IP Externa**: Se envía cuando se detecta un cambio en la IP externa, indicando la IP anterior y la nueva IP.
 
 ## Logs
 

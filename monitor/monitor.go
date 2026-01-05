@@ -78,7 +78,8 @@ func (m *Monitor) checkConnection() {
 		// Acabamos de recuperar la conexión
 		m.handleReconnection(ip)
 	} else {
-		// Conexión estable, actualizar estado
+		// Conexión estable, verificar cambio de IP y actualizar estado
+		m.checkIPChange(ip)
 		m.updateState(ip)
 	}
 
@@ -148,12 +149,32 @@ func (m *Monitor) handleReconnection(ip string) {
 	state.IsConnected = true
 	state.LastConnected = time.Now()
 	state.LastDisconnected = time.Time{} // Limpiar desconexión
+	state.LastIP = ip // Guardar la nueva IP
 
 	if err := utils.SaveState(m.stateFilePath, state); err != nil {
 		utils.WriteLog(fmt.Sprintf("[MONITOR] Error guardando estado: %v", err), m.debug)
 	}
 
 	m.isConnected = true
+}
+
+// checkIPChange verifica si la IP ha cambiado y envía notificación
+func (m *Monitor) checkIPChange(newIP string) {
+	state, err := utils.LoadState(m.stateFilePath)
+	if err != nil {
+		utils.WriteLog(fmt.Sprintf("[MONITOR] Error cargando estado para verificar IP: %v", err), m.debug)
+		return
+	}
+
+	// Si hay una IP anterior y es diferente a la nueva, hubo un cambio
+	if state.LastIP != "" && state.LastIP != newIP {
+		utils.WriteLog(fmt.Sprintf("[MONITOR] Cambio de IP detectado: %s -> %s", state.LastIP, newIP), m.debug)
+		
+		// Enviar correo de cambio de IP
+		if err := m.emailService.SendIPChangeEmail(newIP, state.LastIP); err != nil {
+			utils.WriteLog(fmt.Sprintf("[MONITOR] Error enviando correo de cambio de IP: %v", err), m.debug)
+		}
+	}
 }
 
 // updateState actualiza el estado cuando hay conexión estable
@@ -167,6 +188,7 @@ func (m *Monitor) updateState(ip string) {
 
 	state.IsConnected = true
 	state.LastConnected = time.Now()
+	state.LastIP = ip // Guardar la IP actual
 
 	if err := utils.SaveState(m.stateFilePath, state); err != nil {
 		utils.WriteLog(fmt.Sprintf("[MONITOR] Error guardando estado: %v", err), m.debug)

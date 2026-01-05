@@ -63,12 +63,14 @@ func main() {
 			StartTime:     utils.GetCurrentTime(),
 			LastConnected: utils.GetCurrentTime(),
 			IsConnected:   true,
+			LastIP:        ip, // Guardar IP inicial
 		}
 	} else {
 		// Limpiar estado de desconexión al iniciar (reinicio manual)
 		state.IsConnected = true
 		state.LastConnected = utils.GetCurrentTime()
 		state.LastDisconnected = time.Time{} // Limpiar desconexión previa
+		state.LastIP = ip // Actualizar IP inicial
 	}
 
 	if err := utils.SaveState(cfg.StateFilePath, state); err != nil {

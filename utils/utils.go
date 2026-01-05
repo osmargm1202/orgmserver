@@ -17,6 +17,7 @@ type State struct {
 	LastDisconnected time.Time `json:"last_disconnected"`
 	IsConnected      bool      `json:"is_connected"`
 	StartTime        time.Time `json:"start_time"`
+	LastIP           string    `json:"last_ip"`
 }
 
 // GetExternalIP obtiene la IP externa intentando múltiples servicios
