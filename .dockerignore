@@ -1,0 +1,12 @@
+logs/
+*.log
+.git/
+.gitignore
+*.md
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+

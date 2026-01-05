@@ -1,0 +1,92 @@
+[2026-01-05 09:44:42] [MAIN] Iniciando ORGMServer
+[2026-01-05 09:44:42] [MAIN] Configuración cargada correctamente
+[2026-01-05 09:44:42] [DETECTOR] Detectando causa del inicio del servicio
+[2026-01-05 09:44:42] [DETECTOR] Estado archivo existe: true, Tiempo: 2026-01-05 09:44:42.257172464 +0000 UTC m=+0.000385690
+[2026-01-05 09:44:42] [DETECTOR] Uptime del sistema: 20h58m51s
+[2026-01-05 09:44:42] [DETECTOR] Tiempo de inicio del proceso: 2026-01-05 09:44:42.257162407 +0000 UTC m=+0.000375634
+[2026-01-05 09:44:42] [DETECTOR] Causa detectada: PÉRDIDA DE INTERNET (archivo reciente + proceso reiniciado)
+[2026-01-05 09:44:42] [MAIN] IP Externa: 201.229.245.140
+[2026-01-05 09:44:42] [EMAIL] Intentando enviar correo a xaviergm1013@gmail.com: Servicio ORGMServer Iniciado
+[2026-01-05 09:44:43] [EMAIL] Correo enviado exitosamente a xaviergm1013@gmail.com
+[2026-01-05 09:44:43] [MAIN] Servicio iniciado y monitoreando
+[2026-01-05 09:44:43] [MONITOR] Iniciando loop de monitoreo
+[2026-01-05 09:44:43] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:45:43] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:46:07] [MAIN] Recibida señal de terminación, cerrando...
+[2026-01-05 09:46:07] [MAIN] Servicio detenido
+[2026-01-05 09:46:12] [MAIN] Iniciando ORGMServer
+[2026-01-05 09:46:12] [MAIN] Configuración cargada correctamente
+[2026-01-05 09:46:12] [DETECTOR] Detectando causa del inicio del servicio
+[2026-01-05 09:46:12] [DETECTOR] Estado archivo existe: true, Tiempo: 2026-01-05 09:44:43.626876068 +0000 UTC
+[2026-01-05 09:46:12] [DETECTOR] Uptime del sistema: 21h0m22s
+[2026-01-05 09:46:12] [DETECTOR] Tiempo de inicio del proceso: 2026-01-05 09:46:12.502851059 +0000 UTC m=+0.000358461
+[2026-01-05 09:46:12] [DETECTOR] Causa detectada: PÉRDIDA DE INTERNET (archivo reciente + proceso reiniciado)
+[2026-01-05 09:46:12] [MAIN] IP Externa: 201.229.245.140
+[2026-01-05 09:46:12] [EMAIL] Intentando enviar correo a xaviergm1013@gmail.com: Servicio ORGMServer Iniciado
+[2026-01-05 09:46:14] [EMAIL] Correo enviado exitosamente a xaviergm1013@gmail.com
+[2026-01-05 09:46:14] [MAIN] Servicio iniciado y monitoreando
+[2026-01-05 09:46:14] [MONITOR] Iniciando loop de monitoreo
+[2026-01-05 09:46:14] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:46:49] [MAIN] Recibida señal de terminación, cerrando...
+[2026-01-05 09:46:49] [MAIN] Servicio detenido
+[2026-01-05 09:47:04] [MAIN] Iniciando ORGMServer
+[2026-01-05 09:47:04] [MAIN] Configuración cargada correctamente
+[2026-01-05 09:47:04] [DETECTOR] Detectando causa del inicio del servicio
+[2026-01-05 09:47:04] [DETECTOR] Estado archivo existe: true, Tiempo: 2026-01-05 09:46:14.731335328 +0000 UTC
+[2026-01-05 09:47:04] [DETECTOR] Uptime del sistema: 21h1m13s
+[2026-01-05 09:47:04] [DETECTOR] Tiempo de inicio del proceso: 2026-01-05 09:47:04.366937601 +0000 UTC m=+0.000384927
+[2026-01-05 09:47:04] [DETECTOR] Causa detectada: PÉRDIDA DE INTERNET (archivo reciente + proceso reiniciado)
+[2026-01-05 09:47:04] [MAIN] IP Externa: 201.229.245.140
+[2026-01-05 09:47:04] [EMAIL] Intentando enviar correo a osmargm1202@gmail.com: Servicio ORGMServer Iniciado
+[2026-01-05 09:47:05] [EMAIL] Correo enviado exitosamente a osmargm1202@gmail.com
+[2026-01-05 09:47:05] [MAIN] Servicio iniciado y monitoreando
+[2026-01-05 09:47:05] [MONITOR] Iniciando loop de monitoreo
+[2026-01-05 09:47:05] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:06] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:07] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:08] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:09] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:10] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:11] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:12] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:13] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:14] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:15] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:16] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:17] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:18] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:19] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:20] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:21] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:22] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:23] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:24] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:25] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:26] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:27] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:28] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:29] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:30] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:31] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:32] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:33] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:34] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:35] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:36] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:37] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:38] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:39] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:40] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:41] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:42] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:43] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:44] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:45] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:46] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:47] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:48] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:49] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:50] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:51] [MONITOR] Verificando conexión a internet
+[2026-01-05 09:47:51] [MAIN] Recibida señal de terminación, cerrando...
+[2026-01-05 09:47:51] [MAIN] Servicio detenido
