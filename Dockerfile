@@ -24,10 +24,10 @@ RUN apk --no-cache add ca-certificates tzdata
 WORKDIR /root/
 
 # Copiar binario desde builder y asegurar permisos de ejecución
-COPY --from=builder --chmod=755 /app/orgmserver /root/orgmserver
+COPY --from=builder /app/orgmserver /root/orgmserver
 
 # Verificar que el binario existe
-RUN ls -lh /root/orgmserver
+RUN chmod 755 /root/orgmserver && test -x /root/orgmserver
 
 # Crear directorio para logs y estado
 RUN mkdir -p /tmp /root/logs
