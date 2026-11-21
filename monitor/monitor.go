@@ -10,14 +10,14 @@ import (
 )
 
 type Monitor struct {
-	config            *config.Config
-	emailService      *email.EmailService
+	config             *config.Config
+	emailService       *email.EmailService
 	healthcheckService *healthcheck.HealthcheckService
-	stateFilePath     string
-	monitorInterval   time.Duration
-	isConnected       bool
-	disconnectTime    time.Time
-	debug             bool
+	stateFilePath      string
+	monitorInterval    time.Duration
+	isConnected        bool
+	disconnectTime     time.Time
+	debug              bool
 }
 
 func NewMonitor(
@@ -28,13 +28,13 @@ func NewMonitor(
 	healthcheckSvc := healthcheck.NewHealthcheckService(cfg.HealthcheckURL, debug)
 
 	return &Monitor{
-		config:            cfg,
-		emailService:      emailSvc,
+		config:             cfg,
+		emailService:       emailSvc,
 		healthcheckService: healthcheckSvc,
-		stateFilePath:     cfg.StateFilePath,
-		monitorInterval:   cfg.MonitorInterval,
-		isConnected:       true,
-		debug:             debug,
+		stateFilePath:      cfg.StateFilePath,
+		monitorInterval:    cfg.MonitorInterval,
+		isConnected:        true,
+		debug:              debug,
 	}
 }
 
@@ -58,11 +58,14 @@ func (m *Monitor) Start() error {
 
 // checkConnection verifica la conexión a internet
 func (m *Monitor) checkConnection() {
+	if err := m.emailService.RetryPending(); err != nil {
+		utils.WriteLog(fmt.Sprintf("[MONITOR] Error guardando avisos pendientes: %v", err), m.debug)
+	}
 	utils.WriteLog("[MONITOR] Verificando conexión a internet", m.debug)
 
 	// Intentar obtener IP externa para verificar conexión
 	ip, err := utils.GetExternalIP()
-	
+
 	if err != nil {
 		// No hay conexión
 		if m.isConnected {
@@ -119,18 +122,18 @@ func (m *Monitor) handleDisconnection() {
 // handleReconnection maneja cuando se recupera la conexión
 func (m *Monitor) handleReconnection(ip string) {
 	utils.WriteLog("[MONITOR] Conexión restaurada", m.debug)
-	
+
 	// Calcular duración de desconexión desde el estado guardado
 	state, err := utils.LoadState(m.stateFilePath)
 	var duration time.Duration
-	
+
 	if err == nil && !state.LastDisconnected.IsZero() {
 		duration = time.Since(state.LastDisconnected)
 	} else {
 		// Si no hay timestamp de desconexión, usar el tiempo desde que detectamos la desconexión
 		duration = time.Since(m.disconnectTime)
 	}
-	
+
 	// Enviar correo de reconexión (solo si hubo desconexión real, no reinicio manual)
 	if duration > 0 {
 		if err := m.emailService.SendReconnectionEmail(ip, duration); err != nil {
@@ -149,7 +152,7 @@ func (m *Monitor) handleReconnection(ip string) {
 	state.IsConnected = true
 	state.LastConnected = time.Now()
 	state.LastDisconnected = time.Time{} // Limpiar desconexión
-	state.LastIP = ip // Guardar la nueva IP
+	state.LastIP = ip                    // Guardar la nueva IP
 
 	if err := utils.SaveState(m.stateFilePath, state); err != nil {
 		utils.WriteLog(fmt.Sprintf("[MONITOR] Error guardando estado: %v", err), m.debug)
@@ -169,7 +172,7 @@ func (m *Monitor) checkIPChange(newIP string) {
 	// Si hay una IP anterior y es diferente a la nueva, hubo un cambio
 	if state.LastIP != "" && state.LastIP != newIP {
 		utils.WriteLog(fmt.Sprintf("[MONITOR] Cambio de IP detectado: %s -> %s", state.LastIP, newIP), m.debug)
-		
+
 		// Enviar correo de cambio de IP
 		if err := m.emailService.SendIPChangeEmail(newIP, state.LastIP); err != nil {
 			utils.WriteLog(fmt.Sprintf("[MONITOR] Error enviando correo de cambio de IP: %v", err), m.debug)
@@ -194,5 +197,3 @@ func (m *Monitor) updateState(ip string) {
 		utils.WriteLog(fmt.Sprintf("[MONITOR] Error guardando estado: %v", err), m.debug)
 	}
 }
-
-

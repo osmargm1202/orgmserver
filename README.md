@@ -109,3 +109,17 @@ Los logs se guardan en `logs/orgmserver.log` cuando se ejecuta con `--debug` o c
 - El archivo de estado se guarda en `/tmp/orgmserver_state.json` por defecto
 - Para producción, monta un volumen persistente para el estado y logs
 
+
+## Correo unificado con orgmdns
+
+Configurar `NOTIFICATION_DIR` con la misma carpeta compartida montada en ambos
+servicios. En este modo el servidor guarda sus avisos de inicio, IP y reconexión
+como JSON atómico y no envía correos por SMTP. `orgmdns` reúne esos eventos con los
+resultados DNS en un solo resumen HTML con alternativa de texto simple. Se
+conservan el monitoreo, el estado y los healthchecks del servidor.
+
+Si falla la escritura local, el aviso queda en memoria y se reintenta en cada
+verificación; no sobrevive a un reinicio hasta quedar publicado en disco. Sin
+`NOTIFICATION_DIR` se conserva el envío independiente anterior. Consultar
+[UNIFICACION_CORREOS.md](UNIFICACION_CORREOS.md) para activación coordinada,
+permisos, tiempos de agrupación y reversión. No activar únicamente un servicio.
