@@ -1,7 +1,7 @@
 # Unificación de avisos de servidor y Cloudflare
 
-Código preparado en los repositorios `orgmdns` y `orgmserver`. No activado en
-producción durante esta preparación. Las copias de GitHub conservan sus remotos;
+Código preparado en los repositorios `orgmdns` y `orgmserver` y activado en
+producción el 2026-11-21. Las copias de GitHub conservan sus remotos;
 no contienen los `.env`, estado ni logs operativos. La imagen DNS activa tiene
 el mismo módulo y dependencias, pero no incluye revisión VCS y su binario difiere
 del binario versionado: no se puede certificar identidad de fuentes por checksum.
@@ -78,3 +78,28 @@ las imágenes/configuraciones anteriores coordinadamente. Los originales volver�
 a emitir correos independientes; no dejar servidor antiguo y DNS unificado
 activos esperando que se agrupen sus avisos. No toca API, MCP, PostgreSQL, MinIO,
 Nginx, Tailscale ni el dominio de la aplicación.
+
+## Producción activada — 2026-11-21
+
+- Activos `orgmdns:correo-9ace318` y `orgmserver:correo-8a48c06`.
+  Se corrigió el COPY --chmod del Dockerfile de servidor para el builder instalado.
+- Override operativo automático `docker-compose.override.yml` en cada carpeta
+  de despliegue, `pull_policy: never` y cola común `/home/osmarg/notification-events`
+  montada como `/notifications`. UID/GID 65532:65532, modo 0770.
+- Conservados env_file, variables previas, montajes, comandos y restart always.
+  DNS mantiene SLEEP_TIME=1 y la ventana de agrupación es de 90 segundos.
+- Primera aceptación real: 2026-11-21 12:03:20 UTC, SMTP aceptó un solo resumen con
+  los dos eventos de arranque (servidor y DNS). Cola vacía, cero reinicios y cero
+  envíos individuales de servidor. No se alteraron registros para provocar pruebas.
+- Backup PostgreSQL `20261121T115759Z-acceso-privado`: checksum, restauración aislada
+  y huellas coincidentes. Backup específico de configuración/estado e imágenes
+  `~/backups/orgm-notifications/20261121T115816Z-unificado/`, con checksums,
+  runtime anterior/activo y `rollback.py` privado listo para reversión coordinada.
+- Los contenedores ajenos conservan sus IDs; no se cambió el dominio de admin,
+  el backend, MCP, Nginx, MinIO ni datos fiscales.
+
+Siguiente acción: observar el siguiente cambio natural de IP/reconexión. No
+simular caídas ni editar DNS de producción para probar. Para reconstruir,
+compilar ambas versiones y usar los overrides de `deploy/` con los Compose
+operativos, no el Compose genérico del repositorio. La cola es persistente;
+una caída entre aceptación SMTP y borrado puede repetir el correo.

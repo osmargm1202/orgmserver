@@ -1,0 +1,8 @@
+services:
+  orgmserver:
+    image: orgmserver:correo-8a48c06
+    pull_policy: never
+    environment:
+      NOTIFICATION_DIR: /notifications
+    volumes:
+      - /home/osmarg/notification-events:/notifications
